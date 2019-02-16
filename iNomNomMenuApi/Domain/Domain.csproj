@@ -10,4 +10,11 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MenuItems\Mappings\" />
+    <Folder Include="Menu\DTO\" />
+    <Folder Include="Menu\Mappings\" />
+    <Folder Include="Menu\Handlers\" />
+  </ItemGroup>
+
 </Project>
