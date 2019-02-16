@@ -11,7 +11,7 @@ namespace Repositories
 
         public MenuContext(DbContextOptions<MenuContext> options) : base(options)
         {
-
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

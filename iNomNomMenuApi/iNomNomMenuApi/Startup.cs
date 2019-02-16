@@ -37,6 +37,7 @@ namespace iNomNomMenuApi
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
+            services.AddDomain();
             services.AddAutoMapperConfiguration(GetType().GetTypeInfo().Assembly.GetReferencedAssemblies().Select(c => Assembly.Load(c)).ToArray());
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -73,8 +74,9 @@ namespace iNomNomMenuApi
             app.UseHttpsRedirection();
             app.UsePathBase("/api");
             app.UseAuthentication();
-            app.UseMvc();
             app.UseSwaggerDocumentation();
+
+            app.UseMvc();
 
         }
     }

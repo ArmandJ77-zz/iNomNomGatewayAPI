@@ -39,7 +39,7 @@ namespace Repositories.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2019, 2, 16, 15, 20, 28, 276, DateTimeKind.Local).AddTicks(4912),
+                            DateCreated = new DateTime(2019, 2, 16, 17, 14, 30, 948, DateTimeKind.Local).AddTicks(7651),
                             IsDeleted = false,
                             Name = "Lunch Menu"
                         });
@@ -52,6 +52,8 @@ namespace Repositories.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<int>("MenuId");
 
@@ -72,6 +74,7 @@ namespace Repositories.Migrations
                         {
                             Id = 1,
                             Description = "It has everything you ever wanted in a sandwich. enough said",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "Nom your face off Sandwich",
                             Price = 100.0,
@@ -81,6 +84,7 @@ namespace Repositories.Migrations
                         {
                             Id = 2,
                             Description = "Disappointed",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "I'm a vegan",
                             Price = 200.0,
@@ -90,6 +94,7 @@ namespace Repositories.Migrations
                         {
                             Id = 3,
                             Description = "200g beef patty mixed with 10% sirloin, 10% rump and 80% more beef",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "Anti vegan burger",
                             Price = 120.0,
@@ -99,6 +104,7 @@ namespace Repositories.Migrations
                         {
                             Id = 4,
                             Description = "Yes people pineapple on pizza, #dealwithit",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "Hawaiian pizza",
                             Price = 50.0,
@@ -108,6 +114,7 @@ namespace Repositories.Migrations
                         {
                             Id = 5,
                             Description = "Good luck finding the feta or olives",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "Greek salad",
                             Price = 80.0,
@@ -117,6 +124,7 @@ namespace Repositories.Migrations
                         {
                             Id = 6,
                             Description = "Because you never know what you gonna get",
+                            IsDeleted = false,
                             MenuId = 1,
                             Name = "Uber eats special",
                             Price = 100.0,
