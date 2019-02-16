@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Repositories.Extensions;
 using Repositories.Models;
 
 namespace Repositories
@@ -16,6 +17,11 @@ namespace Repositories
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Seed();
         }
     }
 }

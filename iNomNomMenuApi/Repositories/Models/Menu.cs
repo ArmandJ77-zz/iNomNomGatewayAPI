@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Repositories.Models
 {
@@ -8,7 +8,7 @@ namespace Repositories.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsDeleted { get; set; }
-        public DataSetDateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; }
 
         public ICollection<MenuItem> Items { get; set; }
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repositories.Migrations
@@ -15,7 +16,7 @@ namespace Repositories.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DateCreated = table.Column<int>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,11 +29,11 @@ namespace Repositories.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MenuId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
-                    TimeToPrep = table.Column<int>(nullable: false),
-                    MenuId = table.Column<int>(nullable: true)
+                    TimeToPrep = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +43,25 @@ namespace Repositories.Migrations
                         column: x => x.MenuId,
                         principalTable: "Menus",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Menus",
+                columns: new[] { "Id", "DateCreated", "IsDeleted", "Name" },
+                values: new object[] { 1, new DateTime(2019, 2, 16, 15, 20, 28, 276, DateTimeKind.Local).AddTicks(4912), false, "Lunch Menu" });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Description", "MenuId", "Name", "Price", "TimeToPrep" },
+                values: new object[,]
+                {
+                    { 1, "It has everything you ever wanted in a sandwich. enough said", 1, "Nom your face off Sandwich", 100.0, 20 },
+                    { 2, "Disappointed", 1, "I'm a vegan", 200.0, 60 },
+                    { 3, "200g beef patty mixed with 10% sirloin, 10% rump and 80% more beef", 1, "Anti vegan burger", 120.0, 30 },
+                    { 4, "Yes people pineapple on pizza, #dealwithit", 1, "Hawaiian pizza", 50.0, 25 },
+                    { 5, "Good luck finding the feta or olives", 1, "Greek salad", 80.0, 5 },
+                    { 6, "Because you never know what you gonna get", 1, "Uber eats special", 100.0, 20 }
                 });
 
             migrationBuilder.CreateIndex(

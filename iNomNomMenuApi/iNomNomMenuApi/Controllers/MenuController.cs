@@ -29,7 +29,7 @@ namespace iNomNomMenuApi.Controllers
         [HttpGet]
         public async Task<List<MenuItemDto>> Get()
         {
-            var result = await  _context.Menus.ToListAsync();
+            var result = await  _context.Menus.Include(x => x.Items).ToListAsync();
             return null;
         }
     }
