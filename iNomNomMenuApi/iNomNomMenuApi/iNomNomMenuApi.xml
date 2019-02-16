@@ -4,5 +4,10 @@
         <name>iNomNomMenuApi</name>
     </assembly>
     <members>
+        <member name="M:iNomNomMenuApi.Controllers.MenuController.Get">
+            <summary>
+            Gets a list of menu items
+            </summary>
+        </member>
     </members>
 </doc>

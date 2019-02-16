@@ -9,6 +9,8 @@ using Newtonsoft.Json.Serialization;
 using Serilog;
 using System.Linq;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Repositories;
 
 namespace iNomNomMenuApi
 {
@@ -29,6 +31,10 @@ namespace iNomNomMenuApi
             services.AddLogging(loggingBuilder =>
                 loggingBuilder.AddSerilog(dispose: true));
 
+            services.AddDbContext<MenuContext>(
+                option => option.UseSqlServer(Configuration.GetConnectionString("Database"),
+                    opt => opt.UseRowNumberForPaging()));
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
             services.AddAutoMapperConfiguration(GetType().GetTypeInfo().Assembly.GetReferencedAssemblies().Select(c => Assembly.Load(c)).ToArray());
@@ -43,8 +49,11 @@ namespace iNomNomMenuApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var builder = new ConfigurationBuilder();
+
             if (env.IsDevelopment())
             {
+                builder.AddUserSecrets<Startup>();
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePages();
                 app.UseDatabaseErrorPage();
@@ -63,9 +72,10 @@ namespace iNomNomMenuApi
 
             app.UseHttpsRedirection();
             app.UsePathBase("/api");
-            app.UseSwaggerDocumentation();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseSwaggerDocumentation();
+
         }
     }
 }

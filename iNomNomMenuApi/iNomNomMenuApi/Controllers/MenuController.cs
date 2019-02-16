@@ -4,13 +4,20 @@ using iNomNomMenuApi.Controllers.GatewayAPI.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Repositories;
 
 namespace iNomNomMenuApi.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
     public class MenuController : BaseController
     {
-        public MenuController(IMapper mapper) : base(mapper)
+        private readonly MenuContext _context;
+
+        public MenuController(IMapper mapper, MenuContext context) : base(mapper)
         {
+            _context = context;
         }
 
         /// <summary>
@@ -21,6 +28,9 @@ namespace iNomNomMenuApi.Controllers
         [ProducesResponseType(500)]
         [HttpGet]
         public async Task<List<MenuItemDto>> Get()
-            => new List<MenuItemDto>();
+        {
+            var result = await  _context.Menus.ToListAsync();
+            return null;
+        }
     }
 }

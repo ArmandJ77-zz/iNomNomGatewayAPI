@@ -13,10 +13,6 @@
             {
                 Map = mapper;
             }
-
-            [HttpGet]
-            public string Index()
-                => "Api Started";
         }
     }
 }

@@ -15,17 +15,12 @@ namespace iNomNomMenuApi.Infrastructure.ServiceExtensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "iNomNom Gateway API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "iNomNom Menu API", Version = "v1" });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.XML";
                 var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
                 c.IncludeXmlComments(filePath);
-
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", new string[] { }},
-                };
             });
 
             return services;
@@ -36,8 +31,8 @@ namespace iNomNomMenuApi.Infrastructure.ServiceExtensions
             app.UseSwagger(c => { c.RouteTemplate = "api-docs/{documentName}/swagger.json"; });
             app.UseSwaggerUI(c =>
             {
-                c.DocumentTitle = "iNomNom Gateway API";
-                c.SwaggerEndpoint("/api-docs/v1/swagger.json", "Gateway API");
+                c.DocumentTitle = "iNomNom Menu API";
+                c.SwaggerEndpoint("/api-docs/v1/swagger.json", "Menu API");
                 c.RoutePrefix = "docs";
                 c.DocExpansion(DocExpansion.None);
             });
