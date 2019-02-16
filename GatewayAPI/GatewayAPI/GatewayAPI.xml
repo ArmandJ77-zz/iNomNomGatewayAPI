@@ -9,6 +9,11 @@
             Authenticate a User
             </summary>
         </member>
+        <member name="M:GatewayAPI.Controllers.AuthController.Register(Domain.User.DTO.UserDto)">
+            <summary>
+            Registers a user
+            </summary>
+        </member>
         <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployee(System.Int32)">
             <summary>
             Get Employee by Id

@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Domain.Authentication.DTO;
 using Domain.Authentication.Handlers;
-using Domain.Infrastructure;
+using Domain.User.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace GatewayAPI.Controllers
 {
@@ -27,6 +26,18 @@ namespace GatewayAPI.Controllers
         [HttpPost("login")]
         public TokenDto Login([FromBody] UserAuthenticationDto dto, [FromServices] IAuthenticateUserHandler handler)
             => handler.ExecuteAsync(dto);
+
+
+        /// <summary>
+        /// Registers a user
+        /// </summary>
+        [ProducesResponseType(typeof(TokenDto), 200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public TokenDto Register([FromBody] UserDto dto)
+            => null;
 
 
     }

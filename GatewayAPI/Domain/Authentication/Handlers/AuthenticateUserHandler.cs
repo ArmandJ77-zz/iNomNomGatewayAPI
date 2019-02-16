@@ -33,21 +33,6 @@ namespace Domain.Authentication.Handlers
             //    new Claim(ClaimTypes.Name, dto.Password)
             //};
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_options.Value.SecreteKey);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, "1")
-                }),
-                Expires = DateTime.UtcNow.AddDays(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-
             //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.SecreteKey));
             //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -57,8 +42,7 @@ namespace Domain.Authentication.Handlers
             //    signingCredentials: creds);
 
             //var response = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return new TokenDto { JWT = tokenString };
+            return null;
         }
     }
 

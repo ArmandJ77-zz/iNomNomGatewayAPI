@@ -4,9 +4,11 @@ using GatewayAPI.Infrastructure.ServiceExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
+using Repositories;
 using Serilog;
 using System.Linq;
 using System.Reflection;
@@ -30,12 +32,20 @@ namespace GatewayAPI
             services.AddLogging(loggingBuilder =>
                 loggingBuilder.AddSerilog(dispose: true));
 
+            if (HostingEnvironment.IsEnvironment("Testing"))
+                services.AddDbContext<GatewayContext>(opt => opt.UseInMemoryDatabase("TestDB"));
+            else
+                services.AddDbContext<GatewayContext>(
+                    option => option.UseSqlServer(Configuration.GetConnectionString("Database"),
+                        opt => opt.UseRowNumberForPaging()));
+
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
 
-            services.AddJWTAuthenticationServiceExtension(appSettings.SecreteKey);
             services.AddDomain();
+            services.AddJWTAuthenticationServiceExtension(appSettings.SecreteKey);
             services.AddAutoMapperConfiguration(GetType().GetTypeInfo().Assembly.GetReferencedAssemblies().Select(c => Assembly.Load(c)).ToArray());
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -43,8 +53,6 @@ namespace GatewayAPI
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
             services.AddSwaggerDocumentation();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +80,7 @@ namespace GatewayAPI
             app.UsePathBase("/api");
             app.UseSwaggerDocumentation();
             app.UseAuthentication();
+
             app.UseMvc();
         }
     }
