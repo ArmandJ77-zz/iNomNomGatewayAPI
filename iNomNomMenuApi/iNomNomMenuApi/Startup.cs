@@ -31,7 +31,10 @@ namespace iNomNomMenuApi
             services.AddLogging(loggingBuilder =>
                 loggingBuilder.AddSerilog(dispose: true));
 
-            services.AddDbContext<MenuContext>(
+            if (HostingEnvironment.IsEnvironment("Testing"))
+                services.AddDbContext<MenuContext>(opt => opt.UseInMemoryDatabase("TestDB"));
+            else
+                services.AddDbContext<MenuContext>(
                 option => option.UseSqlServer(Configuration.GetConnectionString("Database"),
                     opt => opt.UseRowNumberForPaging()));
 
