@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GatewayAPI</name>
+    </assembly>
+    <members>
+        <member name="M:GatewayAPI.Controllers.AuthController.Login(Domain.Authentication.DTO.UserAuthenticationDto,Domain.Authentication.Handlers.IAuthenticateUserHandler)">
+            <summary>
+            Authenticate a User
+            </summary>
+        </member>
+        <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployee(System.Int32)">
+            <summary>
+            Get Employee by Id
+            </summary>
+        </member>
+        <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployees">
+            <summary>
+            Get Employees
+            </summary>
+        </member>
+    </members>
+</doc>
