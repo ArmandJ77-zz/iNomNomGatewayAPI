@@ -1,53 +1,73 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Domain.Authentication.DTO;
 using Domain.Infrastructure;
+using ExternalPythonService.Domain.Auth.DTO;
+using ExternalPythonService.Domain.Auth.Handler;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
-using System.Security.Claims;
-using System.Text;
+using System.Threading.Tasks;
+using Domain.Authentication.Builders;
+using Repositories;
 
 namespace Domain.Authentication.Handlers
 {
     public class AuthenticateUserHandler : BaseHandler, IAuthenticateUserHandler
     {
+        private readonly IInsertOrUpdateClientAuthentication _authentication;
         private readonly IOptions<AppSettings> _options;
+        private readonly IEpsGetTokenHandler _epsGetTokenHandler;
+        private readonly ICustomTokenBuilder _tokenBuilder;
+        private readonly ILogger<IAuthenticateUserHandler> _logger;
 
-        public AuthenticateUserHandler(IMapper autoMapper, IOptions<AppSettings> options) : base(autoMapper)
+        public AuthenticateUserHandler(
+            IMapper autoMapper,
+            GatewayContext context,
+            IOptions<AppSettings> options,
+            ILogger<IAuthenticateUserHandler> logger,
+            IEpsGetTokenHandler epsGetTokenHandler,
+            ICustomTokenBuilder tokenBuilder,
+            IInsertOrUpdateClientAuthentication authentication
+            ) : base(autoMapper, context)
         {
+            _authentication = authentication;
             _options = options;
+            _epsGetTokenHandler = epsGetTokenHandler;
+            _tokenBuilder = tokenBuilder;
+            _logger = logger;
         }
 
-        public TokenDto ExecuteAsync(UserAuthenticationDto dto)
+        public async Task<TokenDto> ExecuteAsync(UserAuthenticationDto dto)
         {
-            if (dto == null)
+            var epsToken = await _epsGetTokenHandler.ExecuteAsync(mapper.Map<UserAuthenticationDto, AuthDto>(dto));
+
+            if (epsToken == "Unable to authenticate with credentials")
                 throw new InvalidCredentialException();
 
-            if (string.IsNullOrEmpty(dto.UserName) || string.IsNullOrEmpty(dto.Password))
-                throw new InvalidCredentialException();
+            try
+            {
+                await _authentication.ExecuteAsync(new ClientAuthenticationDto
+                {
+                    UserName = dto.UserName,
+                    Token = epsToken,
+                    IsValid = true
+                });
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Unable to save/update client authentication during login", e);
+                throw e;
+            }
 
-            //var claims = new[]
-            //{
-            //    new Claim(ClaimTypes.Name, dto.Password)
-            //};
+            var result = _tokenBuilder.Build(_options.Value.SecreteKey, dto);
 
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.SecreteKey));
-            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            //var token = new JwtSecurityToken(
-            //    claims: claims,
-            //    expires: DateTime.Now.AddMinutes(5),
-            //    signingCredentials: creds);
-
-            //var response = new JwtSecurityTokenHandler().WriteToken(token);
-            return null;
+            return result;
         }
     }
 
     public interface IAuthenticateUserHandler
     {
-        TokenDto ExecuteAsync(UserAuthenticationDto dto);
+        Task<TokenDto> ExecuteAsync(UserAuthenticationDto dto);
     }
 }

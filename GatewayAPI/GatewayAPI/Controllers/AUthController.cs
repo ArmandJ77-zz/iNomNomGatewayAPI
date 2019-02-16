@@ -4,6 +4,7 @@ using Domain.Authentication.Handlers;
 using Domain.User.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace GatewayAPI.Controllers
 {
@@ -24,9 +25,8 @@ namespace GatewayAPI.Controllers
         [ProducesResponseType(500)]
         [AllowAnonymous]
         [HttpPost("login")]
-        public TokenDto Login([FromBody] UserAuthenticationDto dto, [FromServices] IAuthenticateUserHandler handler)
-            => handler.ExecuteAsync(dto);
-
+        public async Task<TokenDto> Login([FromBody] UserAuthenticationDto dto, [FromServices] IAuthenticateUserHandler handler)
+            => await handler.ExecuteAsync(dto);
 
         /// <summary>
         /// Registers a user

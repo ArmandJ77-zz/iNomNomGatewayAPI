@@ -7,6 +7,8 @@ namespace Repositories
 {
     public class GatewayContext : DbContext
     {
+        public DbSet<ClientAuthentication> ClientAuthentications { get; set; }
+
         public GatewayContext(DbContextOptions<GatewayContext> options) : base(options)
         {
 

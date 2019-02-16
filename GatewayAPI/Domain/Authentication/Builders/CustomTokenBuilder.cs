@@ -5,11 +5,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Domain.Authentication
+namespace Domain.Authentication.Builders
 {
     public class CustomTokenBuilder : ICustomTokenBuilder
     {
-        public TokenDto BuildAsync(string secreteKey, UserAuthenticationDto dto)
+        public TokenDto Build(string secreteKey, UserAuthenticationDto dto)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(secreteKey);
@@ -26,12 +26,11 @@ namespace Domain.Authentication
             var tokenString = tokenHandler.WriteToken(token);
 
             return new TokenDto { JWT = tokenString };
-
         }
     }
 
     public interface ICustomTokenBuilder
     {
-        TokenDto BuildAsync(string secreteKey, UserAuthenticationDto dto);
+        TokenDto Build(string secreteKey, UserAuthenticationDto dto);
     }
 }

@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Domain.Infrastructure;
 using Domain.User.DTO;
+using Repositories;
 
 namespace Domain.User.Handlers
 {
     public class GetUserByIdHandler : BaseHandler, IGetUserByIdHandler
     {
-        public GetUserByIdHandler(IMapper autoMapper) : base(autoMapper)
+        public GetUserByIdHandler(IMapper autoMapper, GatewayContext context) : base(autoMapper, context)
         {
         }
 
