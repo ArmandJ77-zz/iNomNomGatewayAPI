@@ -19,7 +19,7 @@
             Get Employee by Id
             </summary>
         </member>
-        <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployees">
+        <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployees(Domain.Employees.Handlers.IGetEmployeeListHandler)">
             <summary>
             Get Employees
             </summary>

@@ -4,6 +4,7 @@ using Domain.Infrastructure;
 using Repositories;
 using System;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Authentication.Handlers
 {
@@ -19,7 +20,7 @@ namespace Domain.Authentication.Handlers
                 throw new ArgumentException();
 
             //Check if it exists
-            var updateEntity = await Context.ClientAuthentications.FindAsync(dto.Id);
+            var updateEntity = await Context.ClientAuthentications.SingleOrDefaultAsync(x => x.UserName == dto.UserName);
 
             if (updateEntity != null)
             {

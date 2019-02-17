@@ -1,14 +1,14 @@
-﻿namespace Domain.User.DTO
+﻿using System;
+
+namespace Domain.User.DTO
 {
     public class UserDto
     {
-        public string Password { get; set; }
-        public string Name { get; set; }
-        //public string username { get; set; }
-        //public string email { get; set; }
-        //public string first_name { get; set; }
-        //public string last_name { get; set; }
-        //public bool is_active { get; set; }
-        //public bool is_staff { get; set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Token { get; set; }
+        public DateTime DateCreated { get; set; }
+        public bool IsValid { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

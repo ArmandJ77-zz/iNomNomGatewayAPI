@@ -7,7 +7,8 @@ namespace ExternalPythonService.Domain
         public ApiRequestService Service { get; set; }
         public BaseHandler()
         {
-            Service = new ApiRequestService("http://staging.tangent.tngnt.co/api/");
+            Service = new ApiRequestService("http://staging.tangent.tngnt.co/api");
+            
         }
 
         //private async Task<string> GetToken()

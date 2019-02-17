@@ -34,4 +34,9 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Employees\Builders\" />
+    <Folder Include="Employees\Validation\" />
+  </ItemGroup>
+
 </Project>

@@ -1,8 +1,12 @@
 ﻿using Domain.Authentication.Builders;
 using Domain.Authentication.Handlers;
+using Domain.Employees.Handlers;
 using Domain.Infrastructure;
 using Domain.User.Handlers;
+using Domain.User.Resolver;
 using ExternalPythonService.Domain.Auth.Handler;
+using ExternalPythonService.Domain.Employees.Handlers;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GatewayAPI.Infrastructure.ServiceExtensions
@@ -15,16 +19,24 @@ namespace GatewayAPI.Infrastructure.ServiceExtensions
 
             //services.AddSingleton<ILogger>();
             services.AddSingleton<AppSettings>();
+            services.AddTransient<UserResolverService>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient<IGetEpsTokenHandler, GetEpsTokenHandler>();
 
             services.AddTransient<IAuthenticateUserHandler, AuthenticateUserHandler>();
-            services.AddTransient<IGetUserByIdHandler, GetUserByIdHandler>();
+            services.AddTransient<IGetUserByNameHandler, GetUserByNameHandler>();
             services.AddTransient<IGetClientAuthenticationHandler, GetClientAuthenticationHandler>();
 
             services.AddTransient<IEpsGetTokenHandler, GetTokenHandler>();
             services.AddTransient<ICustomTokenBuilder, CustomTokenBuilder>();
             services.AddTransient<IInsertOrUpdateClientAuthentication, InsertOrUpdateClientAuthentication>();
 
-            
+            services.AddTransient<ISearchEmployeeHandler, SearchEmployeeHandler>();
+            services.AddTransient<IGetEmployeeListHandler, GetEmployeeListHandler>();
+            services.AddTransient<IEmployeeGetListHandler, EmployeeGetListHandler>();
+            services.AddTransient<IGetEmployeeByIdHandler, GetEmployeeByIdHandler>();
+
             return services;
         }
     }

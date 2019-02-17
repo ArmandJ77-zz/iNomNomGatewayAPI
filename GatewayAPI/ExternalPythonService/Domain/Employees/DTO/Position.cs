@@ -1,6 +1,6 @@
-﻿namespace ExternalPythonService.Domain.Users.DTO
+﻿namespace ExternalPythonService.Domain.Employees.DTO
 {
-    public class Position
+    public class position
     {
         public int id { get; set; }
         public string name { get; set; }

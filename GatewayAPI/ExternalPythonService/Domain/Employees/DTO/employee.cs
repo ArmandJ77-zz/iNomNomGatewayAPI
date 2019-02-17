@@ -1,9 +1,9 @@
-﻿namespace ExternalPythonService.Domain.Users.DTO
+﻿namespace ExternalPythonService.Domain.Employees.DTO
 {
-    public class EmployeeResultDto
+    public class employee
     {
         public User user { get; set; }
-        public Position position { get; set; }
+        public position position { get; set; }
         public string phone_number { get; set; }
         public string email { get; set; }
         public string github_user { get; set; }

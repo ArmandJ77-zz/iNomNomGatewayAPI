@@ -23,9 +23,8 @@ namespace GatewayAPI.Infrastructure.ServiceExtensions
                 {
                     OnTokenValidated = context =>
                     {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IGetUserByIdHandler>();
-                        //var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.ExecuteAsync();//(userId);
+                        var userService = context.HttpContext.RequestServices.GetRequiredService<IGetUserByNameHandler>();
+                        var user = userService.ExecuteAsync(context.Principal.Identity.Name);
                         if (user == null)
                         {
                             // return unauthorized if user no longer exists

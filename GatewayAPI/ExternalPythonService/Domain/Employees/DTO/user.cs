@@ -1,4 +1,4 @@
-﻿namespace ExternalPythonService.Domain.Users.DTO
+﻿namespace ExternalPythonService.Domain.Employees.DTO
 {
     public class User
     {

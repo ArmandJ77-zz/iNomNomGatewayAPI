@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Employees\DTO\" />
-    <Folder Include="Domain\Employees\Handlers\" />
+    <Folder Include="Domain\Users\DTO\" />
+    <Folder Include="Domain\Users\Handlers\" />
     <Folder Include="Types\" />
   </ItemGroup>
 
@@ -21,6 +21,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Logging.Abstractions">
       <HintPath>..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.logging.abstractions\2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\Users\Armand jordaan\.nuget\packages\newtonsoft.json\11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
 

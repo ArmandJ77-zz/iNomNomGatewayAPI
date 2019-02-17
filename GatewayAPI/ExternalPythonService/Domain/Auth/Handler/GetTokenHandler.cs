@@ -4,7 +4,9 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Serilog;
+using SimpleJson;
 
 namespace ExternalPythonService.Domain.Auth.Handler
 {
@@ -24,8 +26,8 @@ namespace ExternalPythonService.Domain.Auth.Handler
             try
             {
                 var result = await Service.PostAsync(new ApiRequest("api-token-auth/", dto));
-
-                return result.StatusCode != HttpStatusCode.OK ? "Unable to authenticate with credentials" : result.Content;
+                
+                return result.StatusCode != HttpStatusCode.OK ? "Unable to authenticate with credentials" : (string)JObject.Parse(result.Content)["token"];
             }
             catch (Exception e)
             {

@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
+using Domain.User.Resolver;
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 
 namespace Domain.Infrastructure

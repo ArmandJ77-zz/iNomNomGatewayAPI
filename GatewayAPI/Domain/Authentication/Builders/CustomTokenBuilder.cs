@@ -17,7 +17,7 @@ namespace Domain.Authentication.Builders
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, "1")
+                    new Claim(ClaimTypes.Name, dto.UserName)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

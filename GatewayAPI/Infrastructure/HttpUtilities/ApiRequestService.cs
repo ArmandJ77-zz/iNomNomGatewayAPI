@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Runtime.InteropServices.ComTypes;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Threading.Tasks;
+using RestSharp.Authenticators;
 
 namespace Infrastructure.HttpUtilities
 {
