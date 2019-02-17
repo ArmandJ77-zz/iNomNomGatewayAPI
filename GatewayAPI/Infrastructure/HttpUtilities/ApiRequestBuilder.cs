@@ -19,7 +19,7 @@ namespace Infrastructure.HttpUtilities
                 return restRequest;
 
             restRequest.RequestFormat = apiRequest.DataFormat;
-            //restRequest.AddBody(apiRequest.Body);
+            restRequest.AddBody(apiRequest.Body);
 
             return restRequest;
         }

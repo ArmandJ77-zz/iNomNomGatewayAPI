@@ -24,5 +24,10 @@
             Get Employees
             </summary>
         </member>
+        <member name="M:GatewayAPI.Controllers.HealthController.Get(Domain.Health.Handler.IHealthCheckHandler)">
+            <summary>
+            Check if the service is up
+            </summary>
+        </member>
     </members>
 </doc>

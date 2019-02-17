@@ -11,9 +11,5 @@ namespace GatewayAPI.Controllers
         {
             Map = mapper;
         }
-
-        [HttpGet]
-        public string Index()
-            => "Api Started";
     }
 }

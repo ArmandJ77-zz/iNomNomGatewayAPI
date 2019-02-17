@@ -16,7 +16,7 @@ namespace GatewayAPI
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .WriteTo.Seq("http://localhost:5341")
-                .WriteTo.File("Logs/ProcessflowAPILog-.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("Logs/APILog-.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
             try

@@ -25,7 +25,7 @@ namespace ExternalPythonService.Domain.Auth.Handler
 
             try
             {
-                var result = await Service.PostAsync(new ApiRequest("api-token-auth/", dto));
+                var result = await Service.PostAsync(new ApiRequest("api-token-auth", dto));
                 
                 return result.StatusCode != HttpStatusCode.OK ? "Unable to authenticate with credentials" : (string)JObject.Parse(result.Content)["token"];
             }

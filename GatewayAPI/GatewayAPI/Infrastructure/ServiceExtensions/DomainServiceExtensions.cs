@@ -1,6 +1,7 @@
 ﻿using Domain.Authentication.Builders;
 using Domain.Authentication.Handlers;
 using Domain.Employees.Handlers;
+using Domain.Health.Handler;
 using Domain.Infrastructure;
 using Domain.User.Handlers;
 using Domain.User.Resolver;
@@ -37,6 +38,7 @@ namespace GatewayAPI.Infrastructure.ServiceExtensions
             services.AddTransient<IEmployeeGetListHandler, EmployeeGetListHandler>();
             services.AddTransient<IGetEmployeeByIdHandler, GetEmployeeByIdHandler>();
 
+            services.AddTransient<IHealthCheckHandler, HealthCheckHandler>();
             return services;
         }
     }
