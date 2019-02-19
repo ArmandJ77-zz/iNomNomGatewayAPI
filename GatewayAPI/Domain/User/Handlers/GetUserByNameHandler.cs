@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Infrastructure;
@@ -17,11 +18,20 @@ namespace Domain.User.Handlers
         public async Task<UserDto> ExecuteAsync(string userName)
         {
             //Check local DB
-            var entity = await Context.ClientAuthentications.SingleOrDefaultAsync(x => x.UserName == userName);
+            try
+            {
+                var entity = await Context.ClientAuthentications.FirstOrDefaultAsync(x => x.UserName == userName);
+                if (entity != null)
+                    if (entity.IsValid == true && !entity.IsDeleted)
+                        return mapper.Map<ClientAuthentication, UserDto>(entity);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
-            if (entity != null)
-                if(entity.IsValid == true && !entity.IsDeleted)
-                return mapper.Map<ClientAuthentication,UserDto>(entity);
+            
 
             return null;
         }

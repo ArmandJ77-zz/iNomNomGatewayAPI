@@ -7,6 +7,7 @@ using Domain.User.Handlers;
 using Domain.User.Resolver;
 using ExternalPythonService.Domain.Auth.Handler;
 using ExternalPythonService.Domain.Employees.Handlers;
+using ExternalPythonService.Domain.User.Handlers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,9 +37,12 @@ namespace GatewayAPI.Infrastructure.ServiceExtensions
             services.AddTransient<ISearchEmployeeHandler, SearchEmployeeHandler>();
             services.AddTransient<IGetEmployeeListHandler, GetEmployeeListHandler>();
             services.AddTransient<IEmployeeGetListHandler, EmployeeGetListHandler>();
-            services.AddTransient<IGetEmployeeByIdHandler, GetEmployeeByIdHandler>();
 
             services.AddTransient<IHealthCheckHandler, HealthCheckHandler>();
+
+            services.AddTransient<IGetLoggedInUserDetail, GetLoggedInUserDetail>();
+            services.AddTransient<IGetUserDetailHandler, GetUserDetailHandler>();
+            
             return services;
         }
     }

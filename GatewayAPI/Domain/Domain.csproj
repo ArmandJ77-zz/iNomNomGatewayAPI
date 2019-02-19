@@ -37,6 +37,7 @@
   <ItemGroup>
     <Folder Include="Employees\Builders\" />
     <Folder Include="Employees\Validation\" />
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>

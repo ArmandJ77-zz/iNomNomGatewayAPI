@@ -14,11 +14,6 @@
             Registers a user
             </summary>
         </member>
-        <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployee(System.Int32)">
-            <summary>
-            Get Employee by Id
-            </summary>
-        </member>
         <member name="M:GatewayAPI.Controllers.EmployeesController.GetEmployees(Domain.Employees.Handlers.IGetEmployeeListHandler)">
             <summary>
             Get Employees
@@ -27,6 +22,11 @@
         <member name="M:GatewayAPI.Controllers.HealthController.Get(Domain.Health.Handler.IHealthCheckHandler)">
             <summary>
             Check if the service is up
+            </summary>
+        </member>
+        <member name="M:GatewayAPI.Controllers.UserController.Get(Domain.User.Handlers.IGetLoggedInUserDetail)">
+            <summary>
+            Get logged in user detail
             </summary>
         </member>
     </members>

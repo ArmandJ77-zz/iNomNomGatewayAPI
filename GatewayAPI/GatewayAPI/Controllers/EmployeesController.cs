@@ -18,24 +18,13 @@ namespace GatewayAPI.Controllers
         }
 
         /// <summary>
-        /// Get Employee by Id
-        /// </summary>
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        [HttpGet("/{id}")]
-        public string GetEmployee([FromRoute] int id)
-            => id.ToString();
-
-        /// <summary>
         /// Get Employees
         /// </summary>
         [ProducesResponseType(typeof(List<EmployeeDto>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [HttpGet("/")]
+        [HttpGet]
         public async Task<List<EmployeeDto>> GetEmployees([FromServices] IGetEmployeeListHandler handler)
             => await handler.ExecuteAsync();
     }

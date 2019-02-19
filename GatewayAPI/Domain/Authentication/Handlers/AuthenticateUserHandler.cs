@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Domain.Authentication.Builders;
+using Domain.Infrastructure.CustomExceptions;
 using Repositories;
 
 namespace Domain.Authentication.Handlers
@@ -43,7 +44,7 @@ namespace Domain.Authentication.Handlers
             var epsToken = await _epsGetTokenHandler.ExecuteAsync(mapper.Map<UserAuthenticationDto, AuthDto>(dto));
 
             if (epsToken == "Unable to authenticate with credentials")
-                throw new InvalidCredentialException();
+                throw new UnauthorizedException("Invalid user credentials");
 
             try
             {

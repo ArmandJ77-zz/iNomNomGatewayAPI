@@ -12,6 +12,7 @@ using Repositories;
 using Serilog;
 using System.Linq;
 using System.Reflection;
+using GatewayAPI.Infrastructure.Middleware;
 
 namespace GatewayAPI
 {
@@ -39,13 +40,16 @@ namespace GatewayAPI
                     option => option.UseSqlServer(Configuration.GetConnectionString("Database"),
                         opt => opt.UseRowNumberForPaging()));
 
+            var connString = HostingEnvironment.IsEnvironment("Testing")
+                ? Configuration.GetConnectionString("TestDB")
+                : Configuration.GetConnectionString("Database");
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
 
             services.AddDomain();
-            services.AddJWTAuthenticationServiceExtension(appSettings.SecreteKey);
+            services.AddJWTAuthenticationServiceExtension(appSettings.SecreteKey, connString);
             services.AddAutoMapperConfiguration(GetType().GetTypeInfo().Assembly.GetReferencedAssemblies().Select(c => Assembly.Load(c)).ToArray());
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
@@ -69,6 +73,8 @@ namespace GatewayAPI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseMiddleware(typeof(ExceptionHandlingMiddleware));
 
             app.UseStaticFiles();
             app.UseCors(options => options.AllowAnyHeader()

@@ -18,6 +18,12 @@ namespace Domain.Employees.Mapping
                 .ReverseMap();
 
             CreateMap<employee, EmployeeDto>()
+                .ForPath(s => s.User.Id, d => d.MapFrom(x => x.user.id))
+                .ForPath(s => s.User.IsActive, d => d.MapFrom(x => x.user.is_active))
+                .ForPath(s => s.User.IsStaff, d => d.MapFrom(x => x.user.is_staff))
+
+                .ForPath(s => s.User.FirstName, d => d.MapFrom(x => x.user.first_name))
+                .ForPath(s => s.User.LastName, d => d.MapFrom(x => x.user.last_name))
                 .ReverseMap();
 
             CreateMap<List<employee>, List<EmployeeDto>>()

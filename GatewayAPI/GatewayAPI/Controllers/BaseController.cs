@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
+using AutoMapper;
+using Domain.User.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GatewayAPI.Controllers
@@ -11,5 +13,9 @@ namespace GatewayAPI.Controllers
         {
             Map = mapper;
         }
+
+     
     }
+
+    
 }
